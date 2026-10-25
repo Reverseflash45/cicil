@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cicil — berapa bunga cicilanmu sebenarnya?</title>
+    <meta
+      name="description"
+      content="Hitung bunga efektif dari cicilan, bunga flat, paylater, dan pinjaman harian. Masukkan uang yang kamu terima dan yang kamu bayar, lihat bunga sebenarnya per bulan dan per tahun."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cicil-id.vercel.app/" />
+    <meta property="og:title" content="Cicil — berapa bunga cicilanmu sebenarnya?" />
+    <meta property="og:description" content="Bunga flat, biaya admin, dan paylater dibongkar jadi satu angka: bunga efektif per tahun." />
+    <meta property="og:image" content="https://cicil-id.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://cicil-id.vercel.app/" />
+    <meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/ikon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="kepala">
+      <a class="merek" href="/">Cicil<span aria-hidden="true">.</span></a>
+      <nav><a href="#hitung">Hitung</a><a href="#flat">Flat vs efektif</a><a href="#harian">Pinjaman harian</a><a href="#cara">Cara hitung</a></nav>
+    </header>
+
+    <main>
+      <section class="pembuka" aria-labelledby="judul">
+        <p class="label">Kalkulator bunga sebenarnya</p>
+        <h1 id="judul" data-judul>Bunga flat 1,5% sebulan sebenarnya hampir 37% setahun.</h1>
+        <p class="lead" data-lead></p>
+      </section>
+
+      <section class="hitung" id="hitung" aria-labelledby="judul-hitung">
+        <h2 id="judul-hitung" class="tersembunyi">Hitung</h2>
+        <form class="formulir" id="formulir" novalidate>
+          <fieldset class="mode">
+            <legend>Jenis pinjaman</legend>
+            <label><input type="radio" name="mode" value="cicilan" checked /><span>Cicilan tetap</span></label>
+            <label><input type="radio" name="mode" value="flat" /><span>Bunga flat</span></label>
+            <label><input type="radio" name="mode" value="harian" /><span>Pinjaman harian</span></label>
+          </fieldset>
+
+          <div class="contoh">
+            <span>Contoh:</span>
+            <button type="button" data-contoh="motor">Kredit barang 24 bulan</button>
+            <button type="button" data-contoh="paylater">Paylater 3 kali</button>
+            <button type="button" data-contoh="mingguan">Cicilan mingguan</button>
+            <button type="button" data-contoh="harian">Pinjaman 30 hari</button>
+          </div>
+
+          <div class="isian">
+            <label class="isi">
+              <span>Pokok pinjaman</span>
+              <input name="pokok" inputmode="numeric" autocomplete="off" />
+              <small>Jumlah yang tertulis di perjanjian.</small>
+            </label>
+            <label class="isi">
+              <span>Potongan di awal</span>
+              <input name="potongan" inputmode="numeric" autocomplete="off" />
+              <small>Biaya admin, provisi, asuransi, atau apa pun yang dipotong sebelum uang cair.</small>
+            </label>
+            <label class="isi" data-untuk="cicilan">
+              <span>Besar cicilan</span>
+              <input name="cicilan" inputmode="numeric" autocomplete="off" />
+            </label>
+            <div class="isi-ganda" data-untuk="cicilan">
+              <label class="isi">
+                <span>Berapa kali</span>
+                <input name="kali" inputmode="numeric" autocomplete="off" />
+              </label>
+              <label class="isi">
+                <span>Setiap</span>
+                <select name="periode">
+                  <option value="bulan">bulan</option>
+                  <option value="minggu">minggu</option>
+                  <option value="hari">hari</option>
+                </select>
+              </label>
+            </div>
+            <div class="isi-ganda" data-untuk="flat">
+              <label class="isi">
+                <span>Bunga flat per bulan</span>
+                <span class="dengan-satuan"><input name="flat" inputmode="decimal" autocomplete="off" /><span>%</span></span>
+              </label>
+              <label class="isi">
+                <span>Lama</span>
+                <span class="dengan-satuan"><input name="bulan" inputmode="numeric" autocomplete="off" /><span>bulan</span></span>
+              </label>
+            </div>
+            <div class="isi-ganda" data-untuk="harian">
+              <label class="isi">
+                <span>Bunga per hari</span>
+                <span class="dengan-satuan"><input name="harian" inputmode="decimal" autocomplete="off" /><span>%</span></span>
+              </label>
+              <label class="isi">
+                <span>Lama</span>
+                <span class="dengan-satuan"><input name="hari" inputmode="numeric" autocomplete="off" /><span>hari</span></span>
+              </label>
+            </div>
+          </div>
+          <p class="galat" data-galat role="alert" hidden></p>
+        </form>
+
+        <div class="struk" aria-live="polite">
+          <p class="struk-judul">Rincian</p>
+          <dl class="baris-struk" data-rincian></dl>
+          <div class="hasil-utama">
+            <p class="label">Bunga efektif</p>
+            <p class="angka-besar"><span data-efektif-tahun>–</span> <small>per tahun</small></p>
+            <p class="angka-kecil" data-efektif-bulan></p>
+          </div>
+          <p class="kalimat-struk" data-kalimat></p>
+          <div class="ojk" data-ojk hidden></div>
+        </div>
+      </section>
+
+      <section class="bagian" id="jadwal" aria-labelledby="judul-jadwal" data-bagian-jadwal>
+        <p class="label">Ke mana uangmu pergi</p>
+        <h2 id="judul-jadwal">Setiap cicilan, <em class="pokok">pokok</em> dan <em>bunga</em></h2>
+        <p class="pengantar" data-pengantar-jadwal></p>
+        <ul class="legenda" aria-hidden="true">
+          <li><span class="kotak pokok"></span>Pokok</li>
+          <li><span class="kotak bunga"></span>Bunga dan biaya</li>
+        </ul>
+        <div class="grafik" id="grafik-jadwal"></div>
+        <details class="tabel-lipat">
+          <summary>Lihat tabel cicilan</summary>
+          <div class="tabel-gulir">
+            <table class="tabel">
+              <thead>
+                <tr><th scope="col">Ke</th><th scope="col">Bayar</th><th scope="col">Pokok</th><th scope="col">Bunga</th><th scope="col">Sisa utang</th></tr>
+              </thead>
+              <tbody data-tabel-jadwal></tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+
+      <section class="bagian" id="flat" aria-labelledby="judul-flat">
+        <p class="label">Flat vs efektif</p>
+        <h2 id="judul-flat">Bunga flat tidak ikut <em>turun</em></h2>
+        <p class="pengantar" data-pengantar-flat></p>
+        <ul class="legenda" aria-hidden="true">
+          <li><span class="kotak bunga"></span>Bunga flat</li>
+          <li><span class="kotak pokok"></span>Bunga efektif dengan angka yang sama</li>
+        </ul>
+        <div class="grafik" id="grafik-flat"></div>
+        <h3 class="judul-tabel">Bunga flat per bulan, dan bunga efektif per tahun yang setara</h3>
+        <div class="tabel-gulir">
+          <table class="tabel tabel-konversi" data-tabel-konversi></table>
+        </div>
+        <p class="ket">Efektif per tahun dimajemukkan: (1 + bunga efektif per bulan)<sup>12</sup> − 1. Tanpa potongan di awal.</p>
+      </section>
+
+      <section class="bagian" id="harian" aria-labelledby="judul-harian">
+        <p class="label">Pinjaman harian</p>
+        <h2 id="judul-harian">Persen kecil per hari, <em>besar</em> per tahun</h2>
+        <p class="pengantar" data-pengantar-harian></p>
+        <div class="tabel-gulir">
+          <table class="tabel" data-tabel-harian></table>
+        </div>
+        <div class="kotak-info">
+          <p>
+            <strong>Batas dari OJK.</strong> Untuk pinjaman daring (pindar) konsumtif, OJK menetapkan batas manfaat ekonomi
+            0,3% per hari untuk tenor di bawah 6 bulan dan 0,2% per hari untuk tenor 6 bulan ke atas, berlaku sejak 1 Januari
+            2025 berdasarkan Surat Edaran OJK Nomor 19 Tahun 2023 (<a href="https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/LPBBTI-dan-BNPL.aspx">siaran pers OJK</a>).
+            Jadwal awal surat edaran itu menurunkan batas konsumtif menjadi 0,1% per hari mulai 2026. Batasnya bisa ditinjau
+            ulang, jadi periksa angka yang berlaku di <a href="https://ojk.go.id">ojk.go.id</a>.
+          </p>
+          <p>
+            Batas itu berlaku untuk seluruh manfaat ekonomi: bunga ditambah biaya administrasi, fee platform, dan biaya lain,
+            di luar denda keterlambatan, bea meterai, dan pajak, dihitung dari pokok per hari. Kalkulator di atas
+            menampilkan angka yang sama untuk pinjaman harian: total biaya ÷ pokok ÷ lama hari. Pinjaman ilegal tidak tunduk
+            pada batas ini; cek legalitas di daftar resmi OJK.
+          </p>
+        </div>
+      </section>
+
+      <section class="bagian cara" id="cara" aria-labelledby="judul-cara">
+        <h2 id="judul-cara">Cara hitung</h2>
+        <ul>
+          <li>
+            Bunga efektif adalah tingkat bunga yang membuat uang yang kamu terima sama dengan nilai sekarang semua
+            pembayaranmu (internal rate of return). Bunganya dihitung dari sisa utang, jadi bisa dibandingkan antarjenis
+            pinjaman. Kalkulator mencarinya dengan metode biseksi, setara fungsi <code>RATE</code> di spreadsheet.
+          </li>
+          <li>
+            "Per tahun" di angka besar adalah bunga majemuk: (1 + bunga per periode)<sup>periode setahun</sup> − 1. Bank
+            sering menyebut bunga per tahun tanpa pemajemukan (bunga per bulan × 12); angka itu juga ditampilkan di rincian.
+          </li>
+          <li>
+            Potongan di awal dianggap biaya: kamu membayar cicilan atas pokok penuh padahal uang yang diterima lebih
+            sedikit. Denda keterlambatan, asuransi yang ditagih terpisah, dan biaya lain di tengah jalan tidak dihitung.
+          </li>
+          <li>
+            Pembagian pokok dan bunga di grafik memakai bunga efektif, bukan rincian dari pemberi pinjaman. Semua hitungan
+            berjalan di peramban; tidak ada data yang dikirim ke mana pun. Ini alat bantu hitung, bukan nasihat keuangan.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="kaki">
+      <p>Dibuat oleh Rafi Fernandito · <a href="https://github.com/Reverseflash45/cicil">kode sumber</a></p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

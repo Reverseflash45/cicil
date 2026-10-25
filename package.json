@@ -1,0 +1,24 @@
+{
+  "name": "cicil",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "d3-scale": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/d3-scale": "^4.0.9",
+    "@types/node": "^26.6.5",
+    "typescript": "~5.9",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
