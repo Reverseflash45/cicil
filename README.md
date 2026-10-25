@@ -2,7 +2,7 @@
 
 ![Cicil: bunga flat 1,5% sebulan sebenarnya 37% setahun](public/og.png)
 
-**[Buka Cicil](https://cicil-id.vercel.app)**
+**[Buka Cicil](https://cicil.raffstw.my.id)**
 
 Kalkulator bunga sebenarnya. Masukkan uang yang kamu terima dan yang harus kamu bayar, lalu Cicil
 menghitung bunga efektifnya: tingkat bunga dari sisa utang yang bisa dibandingkan antarpinjaman.
