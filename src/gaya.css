@@ -1,42 +1,25 @@
 :root {
+  /* kwitansi rangkap karbon: kertas pink, tinta biru karbon, cap merah */
   color-scheme: light;
-  --kertas: #f7f5f0;
-  --kertas-2: #eeebe3;
-  --struk: #fffdf8;
-  --tab-aktif: #fffdf8;
-  --tinta: #191917;
-  --tinta-2: #46453f;
-  --samar: #6b6a63;
-  --garis: #dedad0;
-  --garis-kuat: #bdb8ac;
-  --aksen: #c2410c;
-  --sorot: #2a5bd7;
-  --pokok: #2a78d6;
-  --bunga: #eb6834;
-  --bahaya: #d03b3b;
-  --aman: #0b7a0b;
-  --judul: "Schibsted Grotesk Variable", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --kertas: #141413;
-    --kertas-2: #1e1e1c;
-    --struk: #1b1b19;
-  --tab-aktif: #3a3935;
-    --tinta: #f0efec;
-    --tinta-2: #c7c6be;
-    --samar: #94938b;
-    --garis: #2c2c29;
-    --garis-kuat: #45443f;
-    --aksen: #fb8a4c;
-    --sorot: #8fb0ff;
-    --pokok: #3987e5;
-    --bunga: #d95926;
-    --bahaya: #ef6b6b;
-    --aman: #4cc24c;
-  }
+  --kertas: #ffd9df;
+  --kertas-2: #ffe8ec;
+  --struk: #fff6f8;
+  --tab-aktif: #fff6f8;
+  --tinta: #1b2a85;
+  --tinta-2: #2a3ba8;
+  --samar: #4a5590;
+  --garis: rgb(42 59 168 / 0.22);
+  --garis-kuat: rgb(42 59 168 / 0.45);
+  --aksen: #d1242f;
+  --sorot: #1b2a85;
+  /* grafik (kategorikal, divalidasi di atas --struk) */
+  --pokok: #3a57d0;
+  --bunga: #e0533f;
+  --bahaya: #b81e28;
+  --aman: #0b7a3b;
+  --judul: "Work Sans Variable", system-ui, sans-serif;
+  --tangan: "Caveat", "Comic Sans MS", cursive;
+  --mono: "Courier Prime", "Courier New", monospace;
 }
 
 *,
@@ -46,9 +29,10 @@
 }
 body {
   margin: 0;
-  background: var(--kertas);
   color: var(--tinta);
   font: 400 17px/1.6 var(--judul);
+  /* garis isian kwitansi */
+  background: repeating-linear-gradient(transparent 0 31px, rgb(42 59 168 / 0.13) 31px 32px) var(--kertas);
 }
 a {
   color: inherit;
@@ -83,27 +67,41 @@ select {
 }
 h1,
 h2 {
-  font-weight: 750;
-  letter-spacing: -0.035em;
+  font-family: var(--tangan);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  text-wrap: balance;
 }
 h1 {
   margin: 12px 0 0;
   max-width: 18ch;
-  font-size: clamp(38px, 5.8vw, 72px);
-  line-height: 1.02;
+  font-size: clamp(44px, 7vw, 92px);
+  line-height: 1;
 }
 h1 em,
 h2 em {
   font-style: normal;
   color: var(--aksen);
 }
+/* angka penting dicap merah seperti stempel */
+h1 em {
+  display: inline-block;
+  padding: 0 0.18em;
+  border: 0.06em solid currentColor;
+  border-radius: 0.12em;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.82em;
+  transform: rotate(-4deg);
+}
 h2 em.pokok {
   color: var(--pokok);
 }
 h2 {
   margin: 8px 0 0;
-  font-size: clamp(30px, 4vw, 46px);
-  line-height: 1.08;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.02;
 }
 
 .kepala,
@@ -122,8 +120,7 @@ main,
 }
 .merek {
   text-decoration: none;
-  font: 800 28px/1 var(--judul);
-  letter-spacing: -0.05em;
+  font: 700 34px/1 var(--tangan);
 }
 .merek span {
   color: var(--aksen);
@@ -290,7 +287,7 @@ main,
   padding: 26px 26px 30px;
   background: var(--struk);
   border-radius: 6px 6px 0 0;
-  box-shadow: 0 1px 0 var(--garis), 0 14px 34px rgb(0 0 0 / 0.08);
+  box-shadow: 0 1px 0 var(--garis), 0 14px 34px rgb(27 42 133 / 0.14);
   font-family: var(--mono);
   /* tepi bawah bergerigi seperti struk */
   mask: radial-gradient(7px at 50% 100%, #0000 98%, #000) 50% / 14px 100%;
@@ -332,8 +329,8 @@ main,
 }
 .angka-besar {
   margin: 6px 0 0;
-  font: 750 clamp(44px, 5vw, 60px) / 1 var(--judul);
-  letter-spacing: -0.04em;
+  font: 700 clamp(44px, 5vw, 60px) / 1 var(--mono);
+  letter-spacing: -0.02em;
   color: var(--aksen);
 }
 .angka-besar small {
