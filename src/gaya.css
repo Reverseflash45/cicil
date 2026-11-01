@@ -305,7 +305,7 @@ main,
 .baris-struk {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 8px 16px;
+  gap: 8px 0; /* tanpa celah kolom supaya garis pemisah tidak terbelah */
   margin: 14px 0 0;
   font-size: 14px;
 }
@@ -314,12 +314,13 @@ main,
 }
 .baris-struk dd {
   margin: 0;
+  padding-left: 16px;
   text-align: right;
   font-weight: 500;
 }
-.baris-struk .pisah {
-  grid-column: 1 / -1;
-  height: 0;
+.baris-struk .pisah-atas {
+  margin-top: 4px;
+  padding-top: 12px;
   border-top: 1.5px dashed var(--garis-kuat);
 }
 .hasil-utama {

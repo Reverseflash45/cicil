@@ -110,7 +110,20 @@ function tampilStruk(p: Rencana, h: Hasil) {
     [`Bunga efektif per ${satuan}`, persen(h.r, 2)],
     ["Per tahun tanpa majemuk", persen(h.nominalTahun)],
   ];
-  $("[data-rincian]").innerHTML = baris.map(([a, b]) => (a ? `<dt>${a}</dt><dd>${b}</dd>` : `<div class="pisah" role="presentation"></div>`)).join("");
+  // Baris kosong = pemisah: digambar sebagai garis di atas pasangan dt/dd berikutnya
+  // (dl hanya boleh berisi dt, dd, dan div pembungkus pasangan).
+  let pisah = false;
+  $("[data-rincian]").innerHTML = baris
+    .map(([a, b]) => {
+      if (!a) {
+        pisah = true;
+        return "";
+      }
+      const k = pisah ? ' class="pisah-atas"' : "";
+      pisah = false;
+      return `<dt${k}>${a}</dt><dd${k}>${b}</dd>`;
+    })
+    .join("");
 
   const negatif = h.r < -1e-9;
   $("[data-efektif-tahun]").textContent = negatif ? "di bawah 0%" : persen(Math.max(0, h.efektifTahun));
