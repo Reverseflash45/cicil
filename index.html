@@ -33,7 +33,7 @@
       <section class="pembuka" aria-labelledby="judul">
         <p class="label">Kalkulator bunga sebenarnya</p>
         <h1 id="judul" data-judul>Bunga flat 1,5% sebulan sebenarnya hampir 37% setahun.</h1>
-        <p class="lead" data-lead></p>
+        <p class="lead" data-lead>Bunga flat dihitung dari pokok awal, padahal utangmu terus berkurang. Biaya admin yang dipotong di awal, paylater dengan "biaya layanan", dan pinjaman harian juga menyembunyikan bunga. Masukkan uang yang kamu terima dan yang harus kamu bayar, dan Cicil menghitung bunga efektifnya: angka yang bisa dibandingkan antarpinjaman.</p>
       </section>
 
       <section class="hitung" id="hitung" aria-labelledby="judul-hitung">
@@ -41,8 +41,8 @@
         <form class="formulir" id="formulir" novalidate>
           <fieldset class="mode">
             <legend>Jenis pinjaman</legend>
-            <label><input type="radio" name="mode" value="cicilan" checked /><span>Cicilan tetap</span></label>
-            <label><input type="radio" name="mode" value="flat" /><span>Bunga flat</span></label>
+            <label><input type="radio" name="mode" value="cicilan" /><span>Cicilan tetap</span></label>
+            <label><input type="radio" name="mode" value="flat" checked /><span>Bunga flat</span></label>
             <label><input type="radio" name="mode" value="harian" /><span>Pinjaman harian</span></label>
           </fieldset>
 
@@ -57,22 +57,22 @@
           <div class="isian">
             <label class="isi">
               <span>Pokok pinjaman</span>
-              <input name="pokok" inputmode="numeric" autocomplete="off" />
+              <input name="pokok" value="15.000.000" inputmode="numeric" autocomplete="off" />
               <small>Jumlah yang tertulis di perjanjian.</small>
             </label>
             <label class="isi">
               <span>Potongan di awal</span>
-              <input name="potongan" inputmode="numeric" autocomplete="off" />
+              <input name="potongan" value="500.000" inputmode="numeric" autocomplete="off" />
               <small>Biaya admin, provisi, asuransi, atau apa pun yang dipotong sebelum uang cair.</small>
             </label>
-            <label class="isi" data-untuk="cicilan">
+            <label class="isi" data-untuk="cicilan" hidden>
               <span>Besar cicilan</span>
-              <input name="cicilan" inputmode="numeric" autocomplete="off" />
+              <input name="cicilan" value="1.150.000" inputmode="numeric" autocomplete="off" />
             </label>
-            <div class="isi-ganda" data-untuk="cicilan">
+            <div class="isi-ganda" data-untuk="cicilan" hidden>
               <label class="isi">
                 <span>Berapa kali</span>
-                <input name="kali" inputmode="numeric" autocomplete="off" />
+                <input name="kali" value="24" inputmode="numeric" autocomplete="off" />
               </label>
               <label class="isi">
                 <span>Setiap</span>
@@ -86,21 +86,21 @@
             <div class="isi-ganda" data-untuk="flat">
               <label class="isi">
                 <span>Bunga flat per bulan</span>
-                <span class="dengan-satuan"><input name="flat" inputmode="decimal" autocomplete="off" /><span>%</span></span>
+                <span class="dengan-satuan"><input name="flat" value="1,5" inputmode="decimal" autocomplete="off" /><span>%</span></span>
               </label>
               <label class="isi">
                 <span>Lama</span>
-                <span class="dengan-satuan"><input name="bulan" inputmode="numeric" autocomplete="off" /><span>bulan</span></span>
+                <span class="dengan-satuan"><input name="bulan" value="24" inputmode="numeric" autocomplete="off" /><span>bulan</span></span>
               </label>
             </div>
-            <div class="isi-ganda" data-untuk="harian">
+            <div class="isi-ganda" data-untuk="harian" hidden>
               <label class="isi">
                 <span>Bunga per hari</span>
-                <span class="dengan-satuan"><input name="harian" inputmode="decimal" autocomplete="off" /><span>%</span></span>
+                <span class="dengan-satuan"><input name="harian" value="0,3" inputmode="decimal" autocomplete="off" /><span>%</span></span>
               </label>
               <label class="isi">
                 <span>Lama</span>
-                <span class="dengan-satuan"><input name="hari" inputmode="numeric" autocomplete="off" /><span>hari</span></span>
+                <span class="dengan-satuan"><input name="hari" value="30" inputmode="numeric" autocomplete="off" /><span>hari</span></span>
               </label>
             </div>
           </div>
@@ -109,13 +109,13 @@
 
         <div class="struk" aria-live="polite">
           <p class="struk-judul">Rincian</p>
-          <dl class="baris-struk" data-rincian></dl>
+          <dl class="baris-struk" data-rincian><dt>Pokok pinjaman</dt><dd>Rp15.000.000</dd><dt>Potongan di awal</dt><dd>−Rp500.000</dd><dt>Uang diterima</dt><dd>Rp14.500.000</dd><dt class="pisah-atas">Cicilan</dt><dd class="pisah-atas">24 × Rp850.000</dd><dt>Total dibayar</dt><dd>Rp20.400.000</dd><dt>Total biaya</dt><dd>Rp5.900.000</dd><dt>Biaya ÷ uang diterima</dt><dd>40,7%</dd><dt class="pisah-atas">Bunga efektif per bulan</dt><dd class="pisah-atas">2,93%</dd><dt>Per tahun tanpa majemuk</dt><dd>35,2%</dd></dl>
           <div class="hasil-utama">
             <p class="label">Bunga efektif</p>
-            <p class="angka-besar"><span data-efektif-tahun>–</span> <small>per tahun</small></p>
-            <p class="angka-kecil" data-efektif-bulan></p>
+            <p class="angka-besar"><span data-efektif-tahun>41,5%</span> <small>per tahun</small></p>
+            <p class="angka-kecil" data-efektif-bulan>= 2,93% per bulan dari sisa utang</p>
           </div>
-          <p class="kalimat-struk" data-kalimat></p>
+          <p class="kalimat-struk" data-kalimat>Kamu menerima <strong>Rp14.500.000</strong> dan membayar 24 × Rp850.000 per bulan. Itu sama dengan meminjam dengan bunga <strong>2,93% per bulan</strong> yang dihitung dari sisa utang.</p>
           <div class="ojk" data-ojk hidden></div>
         </div>
       </section>
